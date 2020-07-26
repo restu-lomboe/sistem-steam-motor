@@ -15,7 +15,7 @@ class KarwayanController extends Controller
     public function index()
     {
         $data = Karyawan::all();
-        return response()->json($data);
+        return response()->json(['data' => $data]);
     }
 
     /**
@@ -35,7 +35,10 @@ class KarwayanController extends Controller
         ]);
         $data = Karyawan::create($request->all());
 
-        return response()->json($data);
+        return response()->json([
+            'message' => 'Data berhasil disimpan',
+            'data' => $data
+        ]);
     }
 
     /**
@@ -67,7 +70,7 @@ class KarwayanController extends Controller
             'alamat' => 'required',
             'user_id' => 'required',
         ]);
-        
+
         $data = Karyawan::where('id', $id)->update([
             'status_karyawan' => $request->status_karyawan,
             'total_motor' => $request->total_motor,
@@ -76,7 +79,15 @@ class KarwayanController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return response()->json($data);
+        if ($data) {
+            return response()->json([
+                'message' => 'Data berhasil diubah'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Data berhasil gagal diubah'
+            ]);
+        }
     }
 
     /**
@@ -89,6 +100,14 @@ class KarwayanController extends Controller
     {
         $data = Karyawan::destroy($id);
 
-        return response()->json($data);
+        if ($data) {
+            return response()->json([
+                'message' => 'Data berhasil dihapus'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Data berhasil gagal dihapus'
+            ]);
+        }
     }
 }

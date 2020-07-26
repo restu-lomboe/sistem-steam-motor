@@ -39,7 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::delete('karyawan/{id}','KarwayanController@destroy');
 });
 
-Route::middleware(['auth', 'karyawan'])->group(function(){
+Route::middleware(['auth:api', 'karyawan'])->group(function(){
     //route admin dan karyawan
     Route::get('karyawan','KarwayanController@index');
     Route::post('karyawan','KarwayanController@store');
