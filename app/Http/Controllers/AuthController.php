@@ -13,12 +13,14 @@ class AuthController extends Controller
         $request->validate([
             'name' => ['required'],
             'email' => ['required','unique:users,email'],
+            'no_hp' => ['required','unique:users,no_hp','max:15'],
             'password' => ['required','min:6']
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'no_hp' => $request->no_hp,
             'password' => bcrypt($request->password)
         ]);
 
@@ -29,11 +31,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'no_hp' => 'required',
             'password' => 'required'
         ]);
 
-        $token = auth()->attempt($request->only('email','password'));
+        $token = auth()->attempt($request->only('no_hp','password'));
 
         if(!$token){
             return response()->json([
