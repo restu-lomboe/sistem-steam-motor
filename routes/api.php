@@ -17,6 +17,19 @@
 //     return $request->user();
 // });
 
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('register', 'AuthController@register');
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+
+});
+
 Route::middleware(['auth', 'admin'])->group(function(){
     //route admin
     Route::get('karyawan','KarwayanController@index');
