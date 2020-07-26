@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,19 @@ use Illuminate\Http\Request;
 
 Route::middleware(['auth', 'admin'])->group(function(){
     //route admin
-
+    Route::get('karyawan','KarwayanController@index');
+    Route::post('karyawan','KarwayanController@store');
+    Route::get('karyawan/{id}','KarwayanController@show');
+    Route::put('karyawan/{id}','KarwayanController@update');
+    Route::delete('karyawan/{id}','KarwayanController@destroy');
 });
 
 Route::middleware(['auth', 'karyawan'])->group(function(){
     //route admin dan karyawan
-
+    Route::get('karyawan','KarwayanController@index');
+    Route::post('karyawan','KarwayanController@store');
+    Route::get('karyawan/{id}','KarwayanController@show');
+    Route::put('karyawan/{id}','KarwayanController@update');
+    Route::delete('karyawan/{id}','KarwayanController@destroy');
 });
+
